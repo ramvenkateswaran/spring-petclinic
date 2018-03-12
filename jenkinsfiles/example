@@ -45,7 +45,7 @@ pipeline {
     stage('Another stage') {
       agent any
       steps {
-        //sample dummy step
+        //sample dummy step #2
         sh 'sleep 4'
       }
     }
