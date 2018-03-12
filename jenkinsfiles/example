@@ -56,5 +56,6 @@ pipeline {
 	sh 'mkdir output'   
 	echo "The build is now complete" >>output/outputfile.txt     
 	}
+    }
   }
 }
