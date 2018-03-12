@@ -49,13 +49,12 @@ pipeline {
         sh 'sleep 4'
       }
     }
-    stage('Create and Archive Output') {
-    agent any
+    stage('Another Stage 2') {
+        agent any
 	steps {
 	//mock stage
-	sh 'mkdir output'   
-	echo "The build is now complete" >>output/outputfile.txt     
-	}
+	sh 'sleep 4'   
+        }
     }
   }
 }
