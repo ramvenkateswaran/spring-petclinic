@@ -46,7 +46,7 @@ pipeline {
       agent any
       steps {
         sh 'mkdir -p output'
-        writefile file:"output/outputfile.txt, text: "The build process is now complete"
+        writefile file:"output/outputfile.txt, text: "The build process is complete"
         archiveartifacts artifact: "output/outputfile.txt"
       }
     }
