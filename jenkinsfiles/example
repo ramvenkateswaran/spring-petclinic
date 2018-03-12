@@ -42,6 +42,19 @@ pipeline {
         sh 'sleep 4'
       }
     }
+    stage('Create Output') {
+      agent any
+      steps {
+        sh 'mkdir -p output'
+        writefile file:"output/outputfile.txt, text: "The last stage of the build process is now complete"
+      }
+    }
+    stage('Archive output') {
+      agent any
+      steps {
+        archiveartifacts artifact: "output/outputfile.txt"
+      }
+    }
     stage('Another stage') {
       agent any
       steps {
