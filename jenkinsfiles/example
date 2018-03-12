@@ -42,14 +42,6 @@ pipeline {
         sh 'sleep 4'
       }
     }
-    stage('Create and Archive Output') {
-      agent any
-      steps {
-        sh 'mkdir -p output'
-        writefile file:"output/outputfile.txt, text: "The build is now complete"
-        archiveartifacts artifact: "output/outputfile.txt"
-      }
-    }
     stage('Another stage') {
       agent any
       steps {
