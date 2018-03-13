@@ -42,12 +42,13 @@ pipeline {
               parallel {
                       a: {
                         echo "Unit Test"
-                        sh 'sleep 4'},
+                        sh 'sleep 4'}
                       b: {
                         echo "Integration Test"
                         sh 'sleep 4'}
               }
       }
+    }
     stage('Another stage') {
       agent any
       steps {
