@@ -35,8 +35,7 @@ pipeline {
         sh "docker run -d -p 9966:8080 --name petclinic-tomcat-temp ${env.IMAGE}:${TAG}"
       }
     }
-    stages {
-        stage('Run Tests') {
+    stage('Run Tests') {
             parallel {
                 stage('Unit Test') {
                     agent any
@@ -50,7 +49,7 @@ pipeline {
                             sh "sleep 4"}
                 }
             }
-        }
+        
     stage('Another stage') {
       agent any
       steps {
