@@ -37,19 +37,19 @@ pipeline {
     }
     stage('Run Tests') {
             parallel {
-                stage('Unit Test') {
+                steps('Unit Test') {
                     agent any
                         steps {
                         sh 'sleep 4'
                         }
                 }
-                stage('Integration Test') {
+                steps('Integration Test') {
                     agent any
                     steps {
-                            sh "sleep 4"}
+                            sh "sleep 4"
+                    }
                 }
             }
-        
     stage('Another stage') {
       agent any
       steps {
