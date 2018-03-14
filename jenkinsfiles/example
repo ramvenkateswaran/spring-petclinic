@@ -28,7 +28,7 @@ pipeline {
         }
       }
     }
-    stage('Deploy to Dev') {
+    stage('Deploy to Test Env') {
       agent any
       steps {
         sh 'docker rm -f petclinic-tomcat-temp || true'
@@ -37,13 +37,19 @@ pipeline {
     }
     stage('Run Tests') {
             parallel {
-                stage('Branch A') {
+                stage('Unit Tests') {
                     agent any
                     steps {
                         echo "Unit Test"
                     }
                 }
-                stage('Branch B') {
+                stage('Integration Tests') {
+                    agent any
+                    steps {
+                        echo "Integration Test"
+                    }
+                 }
+                stage('Other Tests') {
                     agent any
                     steps {
                         echo "Integration Test"
@@ -51,18 +57,62 @@ pipeline {
                 }
             }
         }
-    stage('Another stage') {
+    stage('Capture Test Results') {
       agent any
       steps {
-        //sample dummy step #2
+        //capture test results and destroy test environment
         sh 'sleep 4'
       }
     }
-    stage('Another Stage 2') {
+    stage('Setup Staging Environment') {
         agent any
 	steps {
-	//mock stage
+	//Clone down production environment
 	sh 'sleep 4'   
+        }
+      }
+    stage('Deploy to Staging Environment') {
+        agent any
+	steps {
+	//Clone down production environment
+	sh 'sleep 4'   
+        }
+     }
+    stage('Run Pre-production Tests') {
+            parallel {
+                stage('Functional Tests') {
+                    agent any
+                    steps {
+                        echo "Functional Test"
+                    }
+                }
+                stage('Performance Tests') {
+                    agent any
+                    steps {
+                        echo "Performance Test"
+                    }
+                 }
+                stage('Other Pre-prodcution Tests') {
+                    agent any
+                    steps {
+                        echo "Integration Test"
+                    }
+                 }
+    stage('Review, Approval & Archive') {
+        agent any
+	steps {
+	//Manual Step, Update Docker Registry, etc.
+	sh 'sleep 4'   
+        }
+ }
+    stage('Deploy to Production') {
+        agent any
+	steps {
+	//Staging environment can become the new production environment
+	sh 'sleep 4'   
+        }
+                }
+            }
         }
     }
   }
