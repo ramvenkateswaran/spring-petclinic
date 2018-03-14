@@ -79,24 +79,10 @@ pipeline {
         }
      }
     stage('Run Pre-production Tests') {
-            parallel {
-                stage('Functional Tests') {
-                    agent any
-                    steps {
-                        echo "Functional Test"
-                    }
-                }
-                stage('Performance Tests') {
-                    agent any
-                    steps {
-                        echo "Performance Test"
-                    }
-                 }
-                stage('Other Pre-prodcution Tests') {
-                    agent any
-                    steps {
-                        echo "Other Test"
-                    }
+        agent any
+	steps {
+	//Run pre-prod tests
+	sh 'sleep 4'
                  }
             }
     stage('Review, Approval & Archive') {
@@ -115,4 +101,3 @@ pipeline {
                 }
             }
         }
-    }
