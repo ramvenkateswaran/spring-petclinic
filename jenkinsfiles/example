@@ -28,7 +28,7 @@ pipeline {
         }
       }
     }
-    stage('Deploy to Test Env') {
+    stage('Deploy to Test') {
       agent any
       steps {
         sh 'docker rm -f petclinic-tomcat-temp || true'
@@ -57,21 +57,21 @@ pipeline {
                 }
             }
         }
-    stage('Capture Test Results') {
+    stage('Capture Results') {
       agent any
       steps {
         //capture test results and destroy test environment
         sh 'sleep 4'
       }
     }
-    stage('Setup Staging Environment') {
+    stage('Setup Staging') {
         agent any
 	steps {
 	//Clone down production environment
 	sh 'sleep 4'   
         }
       }
-    stage('Deploy to Staging Environment') {
+    stage('Deploy to Staging') {
         agent any
 	steps {
 	//Clone down production environment
@@ -79,12 +79,27 @@ pipeline {
         }
      }
     stage('Run Pre-production Tests') {
-        agent any
-	steps {
-	//Run pre-prod tests
-	sh 'sleep 4'
+        parallel {
+                stage('Functional Tests') {
+                    agent any
+                    steps {
+                        echo "Functional Test"
+                    }
+                }
+                stage('Performance Tests') {
+                    agent any
+                    steps {
+                        echo "Performance Test"
+                    }
+                 }
+                stage('Other Tests') {
+                    agent any
+                    steps {
+                        echo "Other Test"
                  }
             }
+        }
+    }
     stage('Review, Approval & Archive') {
         agent any
 	steps {
