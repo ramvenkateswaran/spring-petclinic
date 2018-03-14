@@ -95,9 +95,10 @@ pipeline {
                 stage('Other Pre-prodcution Tests') {
                     agent any
                     steps {
-                        echo "Integration Test"
+                        echo "Other Test"
                     }
                  }
+            }
     stage('Review, Approval & Archive') {
         agent any
 	steps {
